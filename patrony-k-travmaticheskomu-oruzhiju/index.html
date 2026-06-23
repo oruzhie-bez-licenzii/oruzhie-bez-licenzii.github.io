@@ -99,5 +99,102 @@ ym(104820200,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
   </div>
 </footer>
 
+<!-- Fancybox для увеличения фото -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+<!-- Скрипт галереи товаров -->
+<script>
+(function() {
+  // Перелистывание фото в галерее
+  document.querySelectorAll('.gallery-carousel').forEach(function(carousel) {
+    var items = carousel.querySelectorAll('.gallery-item');
+    var thumbs = carousel.querySelectorAll('.gallery-thumb');
+    var dots = carousel.querySelectorAll('.gallery-dot');
+    var prevBtn = carousel.querySelector('.gallery-nav.prev');
+    var nextBtn = carousel.querySelector('.gallery-nav.next');
+    var current = 0;
+    var total = items.length;
+
+    function showSlide(index) {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      current = index;
+
+      // Показываем нужный слайд
+      items.forEach(function(item, i) {
+        item.classList.toggle('active', i === index);
+      });
+
+      // Обновляем миниатюры
+      thumbs.forEach(function(th, i) {
+        th.classList.toggle('active', i === index);
+      });
+
+      // Обновляем точки
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    // Клик по миниатюре
+    thumbs.forEach(function(th) {
+      th.addEventListener('click', function() {
+        showSlide(parseInt(this.getAttribute('data-index')));
+      });
+    });
+
+    // Клик по точке
+    dots.forEach(function(d) {
+      d.addEventListener('click', function() {
+        showSlide(parseInt(this.getAttribute('data-index')));
+      });
+    });
+
+    // Кнопки вперёд/назад
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showSlide(current - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showSlide(current + 1);
+      });
+    }
+
+    // Клавиатурные стрелки
+    carousel.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') showSlide(current - 1);
+      if (e.key === 'ArrowRight') showSlide(current + 1);
+    });
+    carousel.setAttribute('tabindex', '0');
+
+    // Свайп для мобильных
+    var startX = 0;
+    var isDragging = false;
+
+    carousel.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, {passive: true});
+
+    carousel.addEventListener('touchend', function(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      var endX = e.changedTouches[0].clientX;
+      var diff = startX - endX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) showSlide(current + 1);
+        else showSlide(current - 1);
+      }
+    }, {passive: true});
+  });
+})();
+</script>
+
 </body>
 </html>
