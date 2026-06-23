@@ -722,3 +722,330 @@ footer.site .disclaimer {
   .hero { padding: 40px 0 30px; }
   section.block { padding: 30px 0; }
 }
+
+/* ============ SPECS TABLE ENHANCED ============ */
+.specs-block {
+  margin-top: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: border-color .2s;
+}
+.specs-block:hover {
+  border-color: var(--accent-dim);
+}
+.specs-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+.specs-table-enhanced {
+  width: 100%;
+  border-collapse: collapse;
+}
+.specs-table-enhanced tr {
+  transition: background .15s;
+}
+.specs-table-enhanced tr:hover {
+  background: rgba(212,168,67,.05);
+}
+.specs-table-enhanced td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: 14px;
+  vertical-align: middle;
+}
+.specs-table-enhanced tr:last-child td {
+  border-bottom: none;
+}
+.spec-label {
+  color: var(--text2);
+  font-weight: 500;
+  width: 45%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spec-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.spec-value {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ============ FAQ CARDS ============ */
+.faq-section {
+  margin-top: 30px;
+}
+.faq-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+}
+.faq-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-card {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg3) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0;
+  transition: all .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.faq-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.faq-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+.faq-card:hover::before {
+  opacity: 1;
+}
+.faq-q {
+  padding: 16px 20px 12px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.faq-q::before {
+  content: '?';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+
+/* ===== Галерея товара (карусель) ===== */
+.gallery-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.gallery-main {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.gallery-item {
+  display: none;
+  width: 100%;
+}
+
+.gallery-item.active {
+  display: block;
+}
+
+.gallery-item a {
+  display: block;
+  width: 100%;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+/* Кнопки навигации */
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,.6);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  z-index: 5;
+  opacity: .9;
+}
+
+.gallery-carousel:hover .gallery-nav {
+  opacity: 1;
+}
+
+.gallery-nav:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Погашенная стрелка на крайнем кадре (как loop:false в эталоне) */
+.gallery-nav.disabled {
+  opacity: .25;
+  cursor: default;
+  pointer-events: none;
+}
+
+.gallery-nav.prev {
+  left: 10px;
+}
+
+.gallery-nav.next {
+  right: 10px;
+}
+
+/* Индикаторы (точки) */
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.gallery-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all .2s;
+  border: none;
+  padding: 0;
+}
+
+.gallery-dot.active {
+  background: var(--accent);
+  transform: scale(1.2);
+}
+
+.gallery-dot:hover {
+  background: var(--text2);
+}
+
+/* Миниатюры */
+.gallery-thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.gallery-thumbs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.gallery-thumbs::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.gallery-thumb {
+  flex: 0 0 auto;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all .2s;
+  opacity: .6;
+}
+
+.gallery-thumb.active {
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+.gallery-thumb:hover {
+  opacity: .8;
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 600px) {
+  .gallery-item img {
+    height: 280px;
+  }
+  .gallery-thumb {
+    width: 56px;
+    height: 56px;
+  }
+  .gallery-nav {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+    opacity: 1;
+  }
+}
+.faq-a {
+  padding: 0 20px 16px 54px;
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+  border-top: 1px solid rgba(255,255,255,.04);
+  margin: 0 20px 0 54px;
+  padding: 14px 0 16px;
+}
+.faq-a p {
+  margin: 0;
+}
