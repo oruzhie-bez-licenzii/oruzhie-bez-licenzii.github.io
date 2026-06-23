@@ -131,8 +131,9 @@ ym(104820200,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
     var total = items.length;
 
     function showSlide(index) {
-      if (index < 0) index = total - 1;
-      if (index >= total) index = 0;
+      // Без зацикливания (как loop:false в эталоне) — упираемся в края
+      if (index < 0) index = 0;
+      if (index >= total) index = total - 1;
       current = index;
 
       // Показываем нужный слайд
@@ -149,6 +150,17 @@ ym(104820200,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
       dots.forEach(function(d, i) {
         d.classList.toggle('active', i === index);
       });
+
+      // Стрелки гаснут на крайних кадрах (как в эталоне)
+      if (prevBtn) prevBtn.classList.toggle('disabled', current === 0);
+      if (nextBtn) nextBtn.classList.toggle('disabled', current === total - 1);
+
+      // Подкручиваем ленту миниатюр к активной (только если лента не влезает)
+      var strip = carousel.querySelector('.gallery-thumbs');
+      if (strip && thumbs[index] && strip.scrollWidth > strip.clientWidth + 1) {
+        var th = thumbs[index];
+        strip.scrollLeft = th.offsetLeft - (strip.clientWidth - th.clientWidth) / 2;
+      }
     }
 
     // Клик по миниатюре
@@ -205,6 +217,9 @@ ym(104820200,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webv
         else showSlide(current - 1);
       }
     }, {passive: true});
+
+    // Стартовое состояние (выставляем disabled на стрелке «назад»)
+    showSlide(0);
   });
 })();
 </script>
